@@ -1,0 +1,2 @@
+const http=require('http'),fs=require('fs'),path=require('path');
+http.createServer((req,res)=>{const name=req.url.split('?')[0];const files={'/':'index.html','/index.html':'index.html','/portrait.png':'portrait.png'};if(!files[name]){res.writeHead(404);return res.end('Not found')}res.setHeader('Content-Type',name.endsWith('.png')?'image/png':'text/html; charset=utf-8');fs.createReadStream(path.join(__dirname,'dist',files[name])).pipe(res)}).listen(4173,'127.0.0.1',()=>console.log('Local: http://127.0.0.1:4173'));
